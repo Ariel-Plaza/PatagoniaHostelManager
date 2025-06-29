@@ -1,8 +1,9 @@
+dotenv.config();
 import sequealize from "sequelize";
 import dotenv from "dotenv";
 
 // Load environment variables from .env file
-dotenv.config();
+
 
 // Initialize Sequelize with environment variables
 //BD conection configuration

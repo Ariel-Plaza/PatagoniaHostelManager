@@ -50,6 +50,91 @@ DB_HOST=localhost
 PORT=3000
 ```
 
+
+### Modelos SQL
+```sql
+CREATE TABLE Address(
+  address_id SERIAL PRIMARY KEY,
+  street VARCHAR(150),
+  city VARCHAR(50),
+  region VARCHAR(50),
+  country VARCHAR(50),
+  postal_code VARCHAR(25)
+)
+
+CREATE TABLE Guest(
+  guest_id SERIAL PRIMARY KEY, 
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  nationality VARCHAR(100) NOT NULL,
+  city_of_origin VARCHAR(50),
+  email VARCHAR(100) UNIQUE,
+  phone VARCHAR(20),
+  addres_id INTEGER REFERENCES Address(address_id),
+  CONSTRAINT check_email_format
+  CHECK(email LIKE'%_@_%.__%')
+)
+
+CREATE TABLE Room(
+  room_id SERIAL PRIMARY KEY,
+  room_number VARCHAR(4) UNIQUE NOT NULL,
+  room_type  VARCHAR(15),
+  capacity INTEGER,
+  price_per_night DECIMAL(10,2),
+  r_status VARCHAR(15),
+  CONSTRAINT check_capacity_positive
+  CHECK (capacity >0),
+  CONSTRAINT check_price_positive 
+  CHECK (price_per_night >= 0),
+  CONSTRAINT check_valid_status 
+  CHECK (r_status IN ('available', 'occupied', 'maintenance', 'reserved'))
+);
+
+CREATE TABLE Service(
+  service_id SERIAL PRIMARY KEY,
+  s_name VARCHAR(50),
+  description VARCHAR(200),
+  price DECIMAL(10,2),
+  available BOOLEAN DEFAULT TRUE,
+  CONSTRAINT check_service_price_positive 
+  CHECK (price >= 0)
+);
+
+CREATE TABLE ReservationHeader(
+  reservation_id SERIAL PRIMARY KEY,
+  guest_id INTEGER NOT NULL REFERENCES Guest(guest_id),
+  room_id INTEGER NOT NULL REFERENCES Room(room_id),
+  check_in DATE,
+  check_out DATE,
+  r_status VARCHAR(15),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT check_dates_logical
+  CHECK (check_out > check_in),
+  CONSTRAINT check_future_checkin
+  CHECK(check_in >= CURRENT_DATE),
+  CONSTRAINT check_max_stay
+  CHECK (check_out - check_in <= 365)
+
+);
+
+CREATE TABLE ReservationDetail(
+  detail_id SERIAL PRIMARY KEY,
+  reservation_id INTEGER NOT NULL REFERENCES ReservationHeader(reservation_id),
+  service_id INTEGER NOT NULL REFERENCES Service(service_id),
+  quantity INTEGER,
+  unit_price DECIMAL(10,2),
+  CONSTRAINT check_quantity_positive 
+  CHECK (quantity > 0),
+  CONSTRAINT check_unit_price_positive 
+  CHECK (unit_price >= 0)
+);
+
+```
+
+## Conexion a BD
+
+
+
 Configura Sequelize en `src/config/db.config.js`.
 
 ## 5. Crea los modelos
@@ -83,3 +168,4 @@ En `server.js`, importa `app`, conecta la base de datos y levanta el servidor.
 
 ```bash
 npm run dev
+```
