@@ -63,7 +63,7 @@ CREATE TABLE Address(
 )
 
 CREATE TABLE Guest(
-  guest_id SERIAL PRIMARY KEY, 
+  guest_id INTEGER PRIMARY KEY, 
   first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
   nationality VARCHAR(100) NOT NULL,

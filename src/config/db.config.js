@@ -2,11 +2,6 @@ dotenv.config();
 import sequealize from "sequelize";
 import dotenv from "dotenv";
 
-// Load environment variables from .env file
-
-
-// Initialize Sequelize with environment variables
-//BD conection configuration
 const sequelize = new sequealize.Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
