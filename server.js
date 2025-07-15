@@ -6,16 +6,12 @@ import sequealize from "./src/config/db.config.js";
 import initModels from "./src/models/init-models.js";
 import chalk from "chalk";
 
-
-
 const PORT = process.env.PORT;
 const main = async () => {
   //Initialize express app
   try {    
     await sequealize.authenticate();
     await sequealize.sync();
-    console.log("DB_USER:", process.env.DB_USER);
-    console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
     console.log(chalk.bgGreen('Conexión a la base de datos exitosa'));
     // Start the server
     initModels(sequealize);

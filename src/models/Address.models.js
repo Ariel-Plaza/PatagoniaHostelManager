@@ -33,7 +33,7 @@ const Address = sequelize.define(
     },
   },
   {
-    tableName: "Address",
+    tableName: "address",
     timestamps: false,
   }
 );

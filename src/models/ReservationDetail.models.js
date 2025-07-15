@@ -12,7 +12,7 @@ const ReservationDetail = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "ReservationHeader",
+        model: "reservationheader",
         key: "reservation_id",
       },
     },
@@ -20,7 +20,7 @@ const ReservationDetail = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "Service",
+        model: "service",
         key: "service_id",
       },
     },
@@ -38,7 +38,7 @@ const ReservationDetail = sequelize.define(
     },
   },
   {
-    tableName: "ReservationDetail",
+    tableName: "reservationdetail",
     timestamps: false,
   }
 );

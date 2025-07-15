@@ -27,7 +27,7 @@ const Service = sequelize.define(
     },
   },
   {
-    tableName: "Service",
+    tableName: "service",
     timestamps: false,
   }
 );

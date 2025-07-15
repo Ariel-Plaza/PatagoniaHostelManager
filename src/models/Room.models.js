@@ -37,7 +37,7 @@ const Room = sequelize.define(
     },
   },
   {
-    tableName: "Room",
+    tableName: "room",
     timestamps: false,
   }
 );

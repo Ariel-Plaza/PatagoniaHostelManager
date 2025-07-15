@@ -43,13 +43,13 @@ const Guest = sequelize.define(
     addres_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "Address",
+        model: "address",
         key: "address_id",
       },
     },
   },
   {
-    tableName: "Guest",
+    tableName: "guest",
     timestamps: false,
   }
 );

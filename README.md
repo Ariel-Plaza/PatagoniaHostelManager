@@ -133,8 +133,6 @@ CREATE TABLE ReservationDetail(
 
 ## Conexion a BD
 
-
-
 Configura Sequelize en `src/config/db.config.js`.
 
 ## 5. Crea los modelos
@@ -142,6 +140,7 @@ Configura Sequelize en `src/config/db.config.js`.
 Define tus modelos en `src/models/`.
 
 Usa `init-models.js` para inicializarlos y asociarlos.
+
 
 ## 6. Crea las rutas
 

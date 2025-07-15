@@ -6,7 +6,7 @@ import fileUpload from "express-fileupload";
 
 //Importacion de rutas
 //Vistas
-// import viewsRoutes from "./routes/views.routes.js";
+import viewsRoutes from "./routes/views.routes.js";
 //Endpoints
 // import usuariosRoutes from "./routes/usuarios.routes.js";
 // import entregasRoutes from "./routes/entregas.routes.js";
@@ -25,7 +25,7 @@ app.use(cors());
 app.use(fileUpload());
 app.use(morgan("tiny"));
 
-//ruta publica
+//ruta publica para acceso a archivos estaticos
 app.use("/public", express.static(path.resolve(__dirname, "./public")));
 // Set the directory for Handlebars
 const hbs = create({
@@ -38,7 +38,7 @@ app.set("view engine", "handlebars");
 app.set("views", path.resolve(__dirname, "./views"));
 
 //Views routes
-// app.use("/", viewsRoutes);
+app.use("/", viewsRoutes);
 
 //Enpoints
 // app.use("/api/usuarios", usuariosRoutes);
