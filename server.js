@@ -17,7 +17,9 @@ const main = async () => {
     initModels(sequealize);
     console.log(chalk.bgGreen("Base de datos - Sincronizada"));
     app.listen(PORT, () => {
-      console.log("servidor escuchando en puerto:" + PORT);
+      console.log(
+        "servidor escuchando en puerto: http://localhost:" + PORT
+      );
     });
   } catch (error) {
     console.error(chalk.bgRed('Error al conectar a la base de datos:', error));

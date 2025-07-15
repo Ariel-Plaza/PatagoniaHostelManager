@@ -14,7 +14,8 @@ import viewsRoutes from "./routes/views.routes.js";
 import * as path from "path";
 //Converts a file URL to a local file path
 import { fileURLToPath } from "url";
-// Get the directory name of the current module file
+
+// Obtiene el directorio actual del archivos
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
@@ -27,15 +28,22 @@ app.use(morgan("tiny"));
 
 //ruta publica para acceso a archivos estaticos
 app.use("/public", express.static(path.resolve(__dirname, "./public")));
-// Set the directory for Handlebars
+
+//--- Handlebars ---
+// Creacon de una instancia personalizada de handlebars
 const hbs = create({
-  partialsDir: [path.resolve(__dirname, "./views/partials/")],
+  //Define la carpeta donde estaran los partials(fragmentos reutilizables de vistas)
+  partialsDir: [path.resolve(__dirname, "./views/partials/")]
 });
 
-// Configure Handlebars as the view engine and set the views directory
+//Regista handlebars como motoe de vistas con extension hbs
 app.engine("handlebars", hbs.engine);
+// Indica que el motor de vistas por defecto será Handlebars (.hbs)
 app.set("view engine", "handlebars");
+// Define la carpeta donde estarán las vistas principales
 app.set("views", path.resolve(__dirname, "./views"));
+// --- Fin Handlebars ---
+
 
 //Views routes
 app.use("/", viewsRoutes);

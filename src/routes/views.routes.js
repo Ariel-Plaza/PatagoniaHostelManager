@@ -18,7 +18,13 @@ router.get('/json', (req, res) => {
 });
 
 //Ruta del proyecto
-router.get('/guests', controller.guests);
+// router.get('/guests', controller.guests);
 
+//prueba de handlebars
+router.get("/hbs", (req, res) => {
+  res.render("home", {
+    nombre: "Ariel",
+  });
+});
 
 export default router;
