@@ -7,9 +7,11 @@ import fileUpload from "express-fileupload";
 //Importacion de rutas
 //Vistas
 import viewsRoutes from "./routes/views.routes.js";
+
 //Endpoints
-// import usuariosRoutes from "./routes/usuarios.routes.js";
+import guestRoutes from "./routes/guests.routes.js";
 // import entregasRoutes from "./routes/entregas.routes.js";
+
 //Provides utilities for working with file and directory paths
 import * as path from "path";
 //Converts a file URL to a local file path
@@ -49,7 +51,7 @@ app.set("views", path.resolve(__dirname, "./views"));
 app.use("/", viewsRoutes);
 
 //Enpoints
-// app.use("/api/usuarios", usuariosRoutes);
+app.use("/api/guests", guestRoutes);
 // app.use("/api/entregas", entregasRoutes);
 
 // Handle 404 errors for undefined routes

@@ -40,7 +40,7 @@ const Guest = sequelize.define(
         is: /^\+?[1-9]\d{1,14}$/, // E.164 format
       },
     },
-    addres_id: {
+    address_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "address",

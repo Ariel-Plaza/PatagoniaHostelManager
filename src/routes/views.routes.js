@@ -27,4 +27,12 @@ router.get("/hbs", (req, res) => {
   });
 });
 
+router.get("/guests", (req, res) => {
+  res.render("guests", {
+    nombre: "Guests",
+  });
+});
+
+
+
 export default router;

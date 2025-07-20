@@ -7,8 +7,8 @@ import ReservationDetail from "./ReservationDetail.models.js";
 
 export default function initModels(sequelize) {
   // Address 1 <--> N Guest
-  Address.hasMany(Guest, { foreignKey: "addres_id" });
-  Guest.belongsTo(Address, { foreignKey: "addres_id" });
+  Address.hasMany(Guest, { foreignKey: "address_id" });
+  Guest.belongsTo(Address, { foreignKey: "address_id" });
 
   // Guest 1 <--> N ReservationHeader
   Guest.hasMany(ReservationHeader, { foreignKey: "guest_id" });
