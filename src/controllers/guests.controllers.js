@@ -64,7 +64,7 @@ export const createGuest = async (req, res) => {
     res.status(201).json({
       code: 201,
       message: "Usuario creado con éxito",
-      data: guestWithAddress,
+      data: guest_id,
     });
   } catch (error) {
     console.error("Stack del error:", error.stack);

@@ -17,8 +17,8 @@
             <form id="formAddGuest" class="row g-3 g-md-4">
               <div class="row gy-3 gy-md-4 overflow-hidden">
                 <div class="col-4">
-                  <label for="addId" class="form-label">ID <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="id" id="addId" placeholder="id number" required>
+                  <label for="addGuest_id" class="form-label">ID <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="guest_id" id="addGuest_id" placeholder="id number" required>
                 </div>
                 <div class="col-4">
                   <label for="addFirstName" class="form-label">First Name <span class="text-danger">*</span></label>
@@ -31,6 +31,10 @@
                 <div class="col-6">
                   <label for="addNationality" class="form-label">Nationality <span class="text-danger">*</span></label>
                   <input type="text" class="form-control" name="nationality" id="addNationality" placeholder="nationality" required>
+                </div>
+                <div class="col-6">
+                  <label for="addCityofOrigin" class="form-label">City of Origin <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="city_of_origin" id="addCityofOrigin" placeholder="city of origin" required>
                 </div>
                 <div class="col-6">
                   <label for="addEmail" class="form-label">Email <span class="text-danger">*</span></label>
@@ -91,19 +95,23 @@ formAddGuest.addEventListener('submit', (event) => {
   myHeaders.append("Content-Type", "application/json");
   //Datos a enviar a backend
   const raw = JSON.stringify({
-    "id": addId.value,
+    "guest_id": addGuest_id.value,
     "first_name": addFirstName.value,
-    "last_name": addLastName,
-    "nationality": addNationality,
-    "email": addEmail,
-    "phone_number": addPhone,
-    "street": addStreet,
-    "city": addCity,
-    "region": addRegion,
-    "country": addCountry,
-    "postal_code": addPostalCode
-
+    "last_name": addLastName.value,
+    "nationality": addNationality.value,
+    "city_of_origin": addCityofOrigin.value,
+    "email": addEmail.value,
+    "phone_number": addPhone.value,
+    "address":{
+      "street": addStreet.value,
+      "city": addCity.value,
+      "region": addRegion.value,
+      "country": addCountry.value,
+      "postal_code": addPostalCode.value
+    }
+    
   });
+  console.log(raw)
   //Solicitud post
   const requestOptions = {
     method: 'POST',
@@ -117,7 +125,7 @@ formAddGuest.addEventListener('submit', (event) => {
         .then(response => response.json())
         .then(result => {
             if(result.code == 201){
-                alert(`Mensaje: ${result.message}\nID nuevo guest: ${result.data.id}`);
+                alert(`Mensaje: ${result.message}\nID nuevo guest: ${result.data}`);
                 //actualiza la tabla
                 location.reload();
             }else{
