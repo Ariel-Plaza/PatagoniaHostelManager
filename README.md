@@ -57,9 +57,7 @@ CREATE TABLE Address(
   address_id SERIAL PRIMARY KEY,
   street VARCHAR(150),
   city VARCHAR(50),
-  region VARCHAR(50),
-  country VARCHAR(50),
-  postal_code VARCHAR(25)
+  country VARCHAR(50)
 )
 
 CREATE TABLE Guest(
@@ -67,7 +65,6 @@ CREATE TABLE Guest(
   first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
   nationality VARCHAR(100) NOT NULL,
-  city_of_origin VARCHAR(50),
   email VARCHAR(100) UNIQUE,
   phone VARCHAR(20),
   addres_id INTEGER REFERENCES Address(address_id),

@@ -21,10 +21,6 @@ const Guest = sequelize.define(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    city_of_origin: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-    },
     email: {
       type: DataTypes.STRING(100),
       unique: true,

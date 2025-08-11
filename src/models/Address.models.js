@@ -19,16 +19,8 @@ const Address = sequelize.define(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    region: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
-    },
     country: {
       type: DataTypes.STRING(50),
-      allowNull: false,
-    },
-    postal_code: {
-      type: DataTypes.STRING(25),
       allowNull: false,
     },
   },

@@ -10,27 +10,23 @@ export const createGuest = async (req, res) => {
       first_name,
       last_name,
       nationality,
-      city_of_origin,
       email,
       phone_number,
       address,
     } = req.body;
     // Armar el objeto de dirección
-    const { street, city, region, country, postal_code } = address || {}; // 👈 validación defensiva
+    const { street, city, country} = address || {}; // 👈 validación defensiva
 
     // Validar campos obligatorios
     if (
       !first_name ||
       !last_name ||
       !nationality ||
-      !city_of_origin ||
       !email ||
       !phone_number ||
       !address.street ||
       !address.city ||
-      !address.region ||
-      !address.country ||
-      !address.postal_code
+      !address.country
     ) {
       return res.status(400).json({
         code: 400,
@@ -47,7 +43,6 @@ export const createGuest = async (req, res) => {
       first_name,
       last_name,
       nationality,
-      city_of_origin,
       email,
       phone_number,
       address_id: addressRecord.address_id,
@@ -67,11 +62,47 @@ export const createGuest = async (req, res) => {
       data: guest_id,
     });
   } catch (error) {
-    console.error("Stack del error:", error.stack);
+    console.error("error:", error.stack);
     res.status(500).json({
       code: 500,
-      message: "Error al crear usuario backend",
+      message: "Error al crear usuario",
       error: error.message,
     });
   }
 };
+
+export const readAllGuest = async function (req, res) {
+  try {
+    //datos que me solicita el usuario
+    const guests = await Guest.findAll();
+    console.log(guests);
+    //obtener data desde la base de datos
+
+    //responde
+    res.status(201).json({
+      code: 201,
+      message: "Usuario creado con éxito",
+      data: guest_id,
+    });
+
+  } catch (error) {
+    console.error("error:", error.stack);
+    res.status(500).json({
+      code: 500,
+      message: "Error al obtener usuarios",
+      error: error.message,
+    });
+  }
+}
+
+
+
+export const updateGuest = async (req, res) => {
+  try {
+    
+  } catch (error) {
+    
+  }
+
+
+ };

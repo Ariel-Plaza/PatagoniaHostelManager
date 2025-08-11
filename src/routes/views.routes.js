@@ -27,12 +27,8 @@ router.get("/hbs", (req, res) => {
   });
 });
 
-router.get("/guests", (req, res) => {
-  res.render("guests", {
-    nombre: "Guests",
-  });
-});
-
+//Vistas Guests
+router.get(["/guests"], viewGuestsController);
 
 
 export default router;
