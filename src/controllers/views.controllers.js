@@ -1,5 +1,5 @@
 import {Op} from 'sequelize';
-import { Guest } from '../models/guest.model.js';
+import  Guest from '../models/Guest.models.js';
 import Address from '../models/Address.models.js';
 import { raw } from 'express';
 
@@ -13,7 +13,7 @@ export const viewGuestsController = async (req, res) => {
         include: [
           {
             model: Address,
-            as: "address",
+            as: "Address",
             attributes: { exclude: ["address_id"], },
             raw: true,
           },
@@ -34,7 +34,7 @@ export const viewGuestsController = async (req, res) => {
     //mostrar la vista
     res.render("guests", {
       guestsView: true,
-      usuarios,
+      guests,
     });
   } catch (error) {
     console.log(error);
