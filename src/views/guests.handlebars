@@ -1,121 +1,55 @@
-<!-- Registration 5 - Bootstrap Brain Component -->
-{{!-- Formulario que se muestra en front --}}
-<section class="p-3 p-md-4 p-xl-5">
-  <div class="container">
-    <div class="card border-light-subtle shadow-sm">
-      <div class="row g-0">
-        <div class="col-12 col-md-12">
-          <div class="card-body p-3 p-md-4 p-xl-5">
-            <div class="row">
-              <div class="col-12">
-                <div class="mb-5">
-                  <h2 class="h3">Registration</h2>
-                  <h3 class="fs-6 fw-normal text-secondary m-0">Enter guest details to register</h3>
-                </div>
-              </div>
-            </div>
-            <form id="formAddGuest" class="row g-3 g-md-4">
-              <div class="row gy-3 gy-md-4 overflow-hidden">
-                <div class="col-4">
-                  <label for="addGuest_id" class="form-label">ID <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="guest_id" id="addGuest_id" placeholder="id number" required>
-                </div>
-                <div class="col-4">
-                  <label for="addFirstName" class="form-label">First Name <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="firstName" id="addFirstName" placeholder="First Name" required>
-                </div>
-                <div class="col-4">
-                  <label for="addLastName" class="form-label">Last Name <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="lastName" id="addLastName" placeholder="Last Name" required>
-                </div>
-                <div class="col-6">
-                  <label for="addNationality" class="form-label">Nationality <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="nationality" id="addNationality" placeholder="nationality" required>
-                </div>
-                <div class="col-6">
-                  <label for="addEmail" class="form-label">Email <span class="text-danger">*</span></label>
-                  <input type="email" class="form-control" name="email" id="addEmail" placeholder="name@example.com" required>
-                </div>
-                 <div class="col-6">
-                  <label for="addPhone" class="form-label">Phone <span class="text-danger">*</span></label>
-                  <input type="number" class="form-control" name="phone" id="addPhone" placeholder="+12 3456 7890" required>
-                </div>
-                 <div class="col-6">
-                  <label for="addStreet" class="form-label">Street <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="street" id="addStreet" required>
-                </div>
-                <div class="col-6">
-                  <label for="addCity" class="form-label">City <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="city" id="addCity" required>
-                </div>
-                <div class="col-6">
-                  <label for="addCountry" class="form-label">Country <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="country" id="addCountry" required>
-                </div>
-                <div class="col-12">
-                  <div class="col-12">
-                    <div class="d-grid">
-                      <button class="btn bsb-btn-xl btn-primary" type="submit">Register</button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<h2 class="text-center py-3">Guest List</h2>
+            <table class="table tableUsuarios">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Nationality</th>
+                        <th scope="col">Email</th>
+                        {{!-- <th scope="col">Phone Number</th>
+                        <th scope="col">Street</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Country</th> --}}
+
+                      <th scope="col">Detalles</th>
+                        <th scope="col">Modificar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{!-- //recorre el objeto y captura la info segun el campo para mostrar --}}
+                    {{#each guests}}
+                        <tr>
+                            <th scope="row">{{this.guest_id}}</th>
+                            <td>{{this.first_name}}</td>
+                            <td>{{this.last_name}}</td>
+                            <td>{{this.nationality}}</td>
+                            <td>{{this.email}}</td>
+                            {{!-- <td>{{this.phone_number}}</td>
+                            <td>{{this.Address.street}}</td>
+                            <td>{{this.Address.city}}</td> --}}
+                            <td>{{this.Address.country}}</td>
 
 
-<script>
-//Creacion new guest
-let formAddGuest = document.querySelector('#formAddGuest');
+                            {{!-- LINK A VISTA DETALLES --}}
+                            {{!-- <td><a href="/detalles/usuario/{{this.id}}" class="btn btn-info">Ver detalles</a></td> --}}
+                            {{!-- BOTON MODIFICAR QUE CAPTUA DATOS PARA ACTUALIZAR --}}
+                            {{!-- <td><button class="btn btn-warning"
+                            data-id="{{this.id}}"
+                            data-nombre="{{this.nombre}}"
+                            data-apellido="{{this.apellido}}"
+                            data-email="{{this.email}}"
+                            data-imagen="{{this.imagen}}"
+                            data-direccion="{{this.direccion.direccion}}"
+                            data-comuna="{{this.direccion.comuna}}"
+                            data-ciudad="{{this.direccion.ciudad}}"
 
-formAddGuest.addEventListener('submit', (event) => {
-  event.preventDefault();
-  //Configuracion de datos json
-  const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-  //Datos a enviar a backend
-  const raw = JSON.stringify({
-    "guest_id": addGuest_id.value,
-    "first_name": addFirstName.value,
-    "last_name": addLastName.value,
-    "nationality": addNationality.value,
-    "email": addEmail.value,
-    "phone_number": addPhone.value,
-    "address":{
-      "street": addStreet.value,
-      "city": addCity.value,
-      "country": addCountry.value
-    }
-    
-  });
-  console.log(raw)
-  //Solicitud post
-  const requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: 'follow'
-  };
-
-  //Llamada a la api
-  fetch("/api/guests/create", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            if(result.code == 201){
-                alert(`Mensaje: ${result.message}\nID nuevo guest: ${result.data}`);
-                //actualiza la tabla
-                location.reload();
-            }else{
-                alert(result.message)
-            }
-        })
-        .catch(error => console.log('error front', error));
-})
-
-
-
-</script>
+                            data-bs-toggle="modal" data-bs-target="#updateModal"
+                            >Modificar</button></td> --}}
+                            {{!-- BOTON ELIMINAR POR ID --}}
+                            {{!-- <td><button class="btn btn-danger" data-id="{{this.id}}">Eliminar</button></td> --}}
+                        </tr>
+                    {{/each }}
+                </tbody>
+            </table>

@@ -1,32 +1,33 @@
 import {Op} from 'sequelize';
-import { Guest } from '../models/guest.model.js';
+import Guest  from '../models/Guest.models.js';
 import Address from '../models/Address.models.js';
 import { raw } from 'express';
 
 export const viewGuestsController = async (req, res) => {
   try {
-    //traigo la data desde la bd
+    //traigo la data desde la bd.
     let guests = await Guest.findAll(
       {
         raw: true,
         attributes: ["guest_id", "first_name", "last_name", "nationality", "email", "phone_number"],
         include: [
           {
-            model: Address,
-            as: "address",
-            attributes: { exclude: ["address_id"], },
             raw: true,
+            model: Address,
+            as: "Address",
+            attributes: { exclude: ["address_id"], },
+            
           },
-        ]
+        ],
       },
     );
     //la proceso para enviar con formato Handlebars
+    // console.log(guests)
     guests = guests.map((guest) => {
-      guest.address = {
-        id: guest["address.id"],
-        street: guest["address.street"],
-        city: ["address.city"],
-        country: ["address.country"]
+      guest.Address = {
+        street: guest["Address.street"],
+        city: guest["Address.city"],
+        country: guest ["Address.country"]
       };
       return guest;
     });
@@ -34,7 +35,7 @@ export const viewGuestsController = async (req, res) => {
     //mostrar la vista
     res.render("guests", {
       guestsView: true,
-      usuarios,
+      guests,
     });
   } catch (error) {
     console.log(error);
