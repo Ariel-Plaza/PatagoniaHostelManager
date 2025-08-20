@@ -460,6 +460,35 @@ formAddGuest.addEventListener('submit', (event) => {
             </tr>
           </thead>
           <tbody>
+{{#each guests}}
+<tr>
+  <th scope="row">{{this.guest_id}}</th>
+  <td>{{this.first_name}}</td>
+  <td>{{this.last_name}}</td>
+  <td>{{this.nationality}}</td>
+  <td>{{this.email}}</td>
+  {{!-- <td>{{this.phone_number}}</td>
+  <td>{{this.Address.street}}</td>
+  <td>{{this.Address.city}}</td> --}}
+  <td>{{this.Address.country}}</td>
+
+
+  {{!-- LINK A VISTA DETALLES --}}
+  {{!-- <td><a href="/detalles/usuario/{{this.id}}" class="btn btn-info">Ver detalles</a></td> --}}
+  {{!-- BOTON MODIFICAR QUE CAPTUA DATOS PARA ACTUALIZAR --}}
+  {{!-- <td><button class="btn btn-warning" data-id="{{this.id}}" data-nombre="{{this.nombre}}"
+      data-apellido="{{this.apellido}}" data-email="{{this.email}}" data-imagen="{{this.imagen}}"
+      data-direccion="{{this.direccion.direccion}}" data-comuna="{{this.direccion.comuna}}"
+      data-ciudad="{{this.direccion.ciudad}}" data-bs-toggle="modal" data-bs-target="#updateModal">Modificar</button>
+  </td> --}}
+  {{!-- BOTON ELIMINAR POR ID --}}
+  {{!-- <td><button class="btn btn-danger" data-id="{{this.id}}">Eliminar</button></td> --}}
+</tr>
+{{/each }}
+
+
+
+
             <tr>
               <td>
                 <span class="custom-checkbox">
