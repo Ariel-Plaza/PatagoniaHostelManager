@@ -8,6 +8,7 @@ const Guest = sequelize.define(
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
+      unique: true,
     },
     first_name: {
       type: DataTypes.STRING(50),

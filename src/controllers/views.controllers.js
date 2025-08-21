@@ -35,7 +35,7 @@ export const viewGuestsController = async (req, res) => {
     //mostrar la vista
     res.render("guests", {
       guestsView: true,
-      guests,
+      // guests,
     });
   } catch (error) {
     console.log(error);

@@ -71,29 +71,29 @@ export const createGuest = async (req, res) => {
   }
 };
 
-export const readAllGuest = async function (req, res) {
-  try {
-    //datos que me solicita el usuario
-    const guests = await Guest.findAll();
-    console.log(guests);
-    //obtener data desde la base de datos
+// export const readAllGuest = async function (req, res) {
+//   try {
+//     //datos que me solicita el usuario
+//     const guests = await Guest.findAll();
+//     console.log(guests);
+//     //obtener data desde la base de datos
 
-    //responde
-    res.status(201).json({
-      code: 201,
-      message: "Usuario creado con éxito",
-      data: guest_id,
-    });
+//     //responde
+//     res.status(201).json({
+//       code: 201,
+//       message: "Usuario creado con éxito",
+//       data: guest_id,
+//     });
 
-  } catch (error) {
-    console.error("error:", error.stack);
-    res.status(500).json({
-      code: 500,
-      message: "Error al obtener usuarios",
-      error: error.message,
-    });
-  }
-}
+//   } catch (error) {
+//     console.error("error:", error.stack);
+//     res.status(500).json({
+//       code: 500,
+//       message: "Error al obtener usuarios",
+//       error: error.message,
+//     });
+//   }
+// }
 
 
 
