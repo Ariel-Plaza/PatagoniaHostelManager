@@ -1,5 +1,5 @@
 import {Op} from 'sequelize';
-import Guest  from '../models/Guest.models.js';
+import  Guest from '../models/Guest.models.js';
 import Address from '../models/Address.models.js';
 import { raw } from 'express';
 

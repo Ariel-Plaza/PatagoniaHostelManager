@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import {viewGuestsController} from "../controllers/views.controllers.js"
-
+import { viewGuestsController } from '../controllers/views.controllers.js';
 const router = Router();
 
 //Rutas publicas
