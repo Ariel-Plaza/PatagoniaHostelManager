@@ -71,32 +71,45 @@ export const createGuest = async (req, res) => {
   }
 };
 
-// export const readAllGuest = async function (req, res) {
-//   try {
-//     //datos que me solicita el usuario
-//     const guests = await Guest.findAll();
-//     console.log(guests);
-//     //obtener data desde la base de datos
+export const readAllGuest = async function (req, res) {
+  try {
+    const guests = await Guest.findAll({
+        include:[
+          {
+            model: Address,
+            as: "Address"
+          }, 
+      ],
+      attributes: [
+        "guest_id",
+        "first_name",
+        "last_name",
+        "nationality",
+        "email",
+        "phone_number"
+      ],
+      }
+    );
+    //response
+    res.status(200).json({
+      code: 200,
+      message: "Usuarios obtenidos correctamente",
+      data: guests,
+    });
 
-//     //responde
-//     res.status(201).json({
-//       code: 201,
-//       message: "Usuario creado con éxito",
-//       data: guest_id,
-//     });
-
-//   } catch (error) {
-//     console.error("error:", error.stack);
-//     res.status(500).json({
-//       code: 500,
-//       message: "Error al obtener usuarios",
-//       error: error.message,
-//     });
-//   }
-// }
+  } catch (error) {
+    console.error("error:", error.stack);
+    res.status(404).json({
+      code: 404,
+      message: "Error al obtener usuarios",
+      error: error.message,
+    });
+  }
+}
 
 
-
+/*
+// UPDATE
 export const updateGuest = async (req, res) => {
   try {
     
@@ -106,3 +119,9 @@ export const updateGuest = async (req, res) => {
 
 
  };
+*/
+
+/*
+// DELETE
+
+*/
