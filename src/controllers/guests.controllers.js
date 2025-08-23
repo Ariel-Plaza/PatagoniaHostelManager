@@ -113,6 +113,8 @@ export const updateGuest = async (req, res) => {
   try {
     // Retrieves the user ID for update operations
     const { guest_id, first_name } = req.body
+    
+    //Validations
 
     console.log(guest_id, first_name)
     // Executes a database query to locate the corresponding ID
@@ -146,14 +148,31 @@ export const updateGuest = async (req, res) => {
       guest: guest,
     });
   } catch (error) {
-    
+    // error lists
   }
 
 
  };
 
 
-/*
-// DELETE
 
-*/
+// DELETE
+export const deleteGuest = async (req, res) => {
+  
+  // Retrieves the user ID for update operations
+  const { guest_id } = req.body
+  console.log()
+  //validates
+
+
+  const guest = await Guest.findByPk(guest_id)
+
+  await guest.destroy()
+  
+  res.status(200).json({
+    code: 200,
+    message: "Usuario eliminado correctamente",
+    guest_id: guest_id,
+  });
+
+}
