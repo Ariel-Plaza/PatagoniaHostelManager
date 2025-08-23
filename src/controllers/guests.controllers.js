@@ -90,7 +90,6 @@ export const readAllGuest = async function (req, res) {
       ],
       }
     );
-    //response
     res.status(200).json({
       code: 200,
       message: "Usuarios obtenidos correctamente",
@@ -108,18 +107,51 @@ export const readAllGuest = async function (req, res) {
 }
 
 
-/*
+
 // UPDATE
 export const updateGuest = async (req, res) => {
   try {
-    
+    // Retrieves the user ID for update operations
+    const { guest_id, first_name } = req.body
+
+    console.log(guest_id, first_name)
+    // Executes a database query to locate the corresponding ID
+    const guest = await Guest.findByPk(guest_id,{
+        include: [
+      {
+        model: Address,
+        as: "Address"
+      },
+    ],
+      attributes: [
+      "guest_id",
+      "first_name",
+      "last_name",
+      "nationality",
+      "email",
+      "phone_number"
+    ],
+    })
+    //data shows
+    console.log(guest, first_name)
+    // Inserts the new records into the database table
+    guest.first_name = first_name;
+    //Save the new records into the database table
+    await guest.save();
+
+    res.status(200).json({
+      code: 200,
+      message: "Usuario actualizado correctamente",
+      guest_id: guest_id,
+      guest: guest,
+    });
   } catch (error) {
     
   }
 
 
  };
-*/
+
 
 /*
 // DELETE
