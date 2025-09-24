@@ -22,7 +22,6 @@ export const viewGuestsController = async (req, res) => {
       },
     );
     //la proceso para enviar con formato Handlebars
-    // console.log(guests)
     guests = guests.map((guest) => {
       guest.Address = {
         street: guest["Address.street"],
@@ -31,7 +30,6 @@ export const viewGuestsController = async (req, res) => {
       };
       return guest;
     });
-    console.log(guests)
     //mostrar la vista
     res.render("guests", {
       guestsView: true,
@@ -47,10 +45,4 @@ export const viewGuestsController = async (req, res) => {
   }
 };
 
-// export const getGuests = async (req, res) => {
-//   try {
-//     let { guest_id, first_name, last_name, nationality, email, phone_number, address_id } = req.query;
-//   } catch (error) {
-
-//   }
-// }
+//Only views 

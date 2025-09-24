@@ -30,5 +30,4 @@ router.get("/hbs", (req, res) => {
 //Vistas Guests
 router.get(["/guests"], viewGuestsController);
 
-
 export default router;

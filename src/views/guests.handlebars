@@ -7,8 +7,8 @@
             <h2>Manage <b>Guest</b></h2>
           </div>
           <div class="col-sm-6">
-            <a href="#addGuestModal" class="btn btn-success" data-toggle="modal"><i
-                class="material-icons">&#xE147;</i> <span>Add New Guest</span></a>
+            <a href="#addGuestModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i>
+              <span>Add New Guest</span></a>
             <a href="#deleteGuestModal" class="btn btn-danger" data-toggle="modal"><i
                 class="material-icons">&#xE15C;</i> <span>Delete</span></a>
           </div>
@@ -55,10 +55,16 @@
             <td>{{this.Address.city}}</td>
             <td>{{this.Address.country}}</td>
             <td>
-              <a href="#editGuestModal" class="edit" data-toggle="modal"><i class="material-icons"
-                  data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-              <a href="#deleteGuestModal" class="delete" data-toggle="modal"><i class="material-icons"
-                  data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+              {{!-- <a href="#editGuestModal" class="edit" data-toggle="modal" data-guest='{{JSONstringify this}}'>
+                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+              </a> --}}
+              <a href="#editGuestModal" class="edit" data-toggle="modal" data-firstname="{{this.first_name}}"
+                data-email="{{this.email}}" data-phone="{{this.phone_number}}" data-street="{{this.Address.street}}"
+                data-city="{{this.Address.city}}" data-country="{{this.Address.country}}">
+                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+              <a href="#deleteGuestModal" class="delete" data-toggle="modal">
+                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+              </a>
             </td>
           </tr>
           {{/each}}
@@ -80,7 +86,7 @@
   </div>
 </div>
 
-<!-- Edit Add Modal HTML -->
+<!-- Add Modal -->
 <div id="addGuestModal" class="modal fade">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -137,23 +143,24 @@
     </div>
   </div>
 </div>
-<!-- Edit Modal HTML -->
+
+<!-- Edit Modal -->
 <div id="editGuestModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <form>
         <div class="modal-header">
-          <h4 class="modal-title">Edit Employee</h4>
+          <h4 class="modal-title">Edit Guest</h4>
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         </div>
         <div class="modal-body">
           <div class="form-group">
             <label>Name</label>
-            <input type="text" class="form-control" required>
+            <input type="text" class="form-control" name="firstName" required>
           </div>
           <div class="form-group">
             <label>Email</label>
-            <input type="email" class="form-control" required>
+            <input type="email" class="form-control" name="email" required>
           </div>
           <div class="form-group">
             <label>Address</label>
@@ -172,6 +179,7 @@
     </div>
   </div>
 </div>
+
 <!-- Delete Modal HTML -->
 <div id="deleteGuestModal" class="modal fade">
   <div class="modal-dialog">

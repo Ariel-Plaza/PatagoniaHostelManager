@@ -35,7 +35,12 @@ app.use("/public", express.static(path.resolve(__dirname, "./public")));
 // Creacon de una instancia personalizada de handlebars
 const hbs = create({
   //Define la carpeta donde estaran los partials(fragmentos reutilizables de vistas)
-  partialsDir: [path.resolve(__dirname, "./views/partials/")]
+  partialsDir: [path.resolve(__dirname, "./views/partials/")],
+  helpers: {
+    JSONstringify: function (context) {
+      return JSON.stringify(context);
+    },
+  },
 });
 
 //Regista handlebars como motoe de vistas con extension hbs

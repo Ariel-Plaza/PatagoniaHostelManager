@@ -106,8 +106,6 @@ export const readAllGuest = async function (req, res) {
   }
 }
 
-
-
 // UPDATE
 export const updateGuest = async (req, res) => {
   try {
@@ -153,7 +151,6 @@ export const updateGuest = async (req, res) => {
 
 
  };
-
 
 
 // DELETE

@@ -1,4 +1,30 @@
-//Creacion new guest
+//dashboard
+
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+const selectAllCheckbox = document.getElementById("selectAll");
+const guestCheckboxes = document.querySelectorAll('table tbody input[type="checkbox"]');
+
+selectAllCheckbox.addEventListener("click", function () {
+  const isChecked = this.checked;
+  guestCheckboxes.forEach(checkbox => {
+    checkbox.checked = isChecked;
+  });
+});
+
+// Escucha el clic en cada checkbox individual.
+guestCheckboxes.forEach(checkbox => {
+  checkbox.addEventListener("click", function () {
+    // Si algún checkbox individual se deselecciona, deselecciona 'seleccionar todo'.
+    if (!this.checked) {
+      selectAllCheckbox.checked = false;
+    }
+  });
+});
+
+
+//New guest
 let formAddGuest = document.querySelector('#formAddGuest');
 
 formAddGuest.addEventListener('submit', (event) => {
@@ -21,7 +47,6 @@ formAddGuest.addEventListener('submit', (event) => {
     }
 
   });
-  console.log(raw)
   //Solicitud post
   const requestOptions = {
     method: 'POST',
@@ -45,28 +70,19 @@ formAddGuest.addEventListener('submit', (event) => {
     .catch(error => console.log('error front', error));
 })
 
-
-
-$(document).ready(function () {
-  // Activate tooltip
-  $('[data-toggle="tooltip"]').tooltip();
-
-  // Select/Deselect checkboxes
-  var checkbox = $('table tbody input[type="checkbox"]');
-  $("#selectAll").click(function () {
-    if (this.checked) {
-      checkbox.each(function () {
-        this.checked = true;
-      });
-    } else {
-      checkbox.each(function () {
-        this.checked = false;
-      });
-    }
-  });
-  checkbox.click(function () {
-    if (!this.checked) {
-      $("#selectAll").prop("checked", false);
-    }
-  });
+//edit guest
+//encuentra todos los botones edit y escucha el clic para activar la funcion editguest
+document.querySelectorAll(".edit").forEach(btn => {
+  btn.addEventListener("click", editguest);
 });
+
+function editguest(e) {
+  //obtiene el boton que realizo el disparo y el modal que se va a rellenar
+  const btn = e.currentTarget;
+  const modal = document.getElementById("editGuestModal");
+  //busca los campos dentro del modal y los rellena con la data 
+  modal.querySelector("input[name='firstName']").value = btn.dataset.firstname || "";
+  modal.querySelector("input[name='email']").value = btn.dataset.email || "";
+  modal.querySelector("textarea").value = `${btn.dataset.street || ""}, ${btn.dataset.city || ""}, ${btn.dataset.country || ""}`;
+  modal.querySelector("input[type='text']:not([name='firstName'])").value = btn.dataset.phone || "";
+}
