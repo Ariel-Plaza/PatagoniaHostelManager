@@ -55,12 +55,7 @@
             <td>{{this.Address.city}}</td>
             <td>{{this.Address.country}}</td>
             <td>
-              {{!-- <a href="#editGuestModal" class="edit" data-toggle="modal" data-guest='{{JSONstringify this}}'>
-                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-              </a> --}}
-              <a href="#editGuestModal" class="edit" data-toggle="modal" data-firstname="{{this.first_name}}"
-                data-email="{{this.email}}" data-phone="{{this.phone_number}}" data-street="{{this.Address.street}}"
-                data-city="{{this.Address.city}}" data-country="{{this.Address.country}}">
+              <a href="#editGuestModal" class="edit" data-toggle="modal" data-guest-id="{{this.guest_id}}">
                 <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
               <a href="#deleteGuestModal" class="delete" data-toggle="modal">
                 <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>

@@ -15,7 +15,7 @@ export const createGuest = async (req, res) => {
       address,
     } = req.body;
     // Armar el objeto de dirección
-    const { street, city, country} = address || {}; // 👈 validación defensiva
+    const { street, city, country } = address || {}; // 👈 validación defensiva
 
     // Validar campos obligatorios
     if (
@@ -74,11 +74,11 @@ export const createGuest = async (req, res) => {
 export const readAllGuest = async function (req, res) {
   try {
     const guests = await Guest.findAll({
-        include:[
-          {
-            model: Address,
-            as: "Address"
-          }, 
+      include: [
+        {
+          model: Address,
+          as: "Address"
+        },
       ],
       attributes: [
         "guest_id",
@@ -88,7 +88,7 @@ export const readAllGuest = async function (req, res) {
         "email",
         "phone_number"
       ],
-      }
+    }
     );
     res.status(200).json({
       code: 200,
@@ -106,31 +106,64 @@ export const readAllGuest = async function (req, res) {
   }
 }
 
+//Find by ID
+export const findById = async (req, res) => {
+  let id = Number(req.params.id);
+
+  try {
+    const guests = await Guest.findByPk(id,{
+      include: [
+        {
+          model: Address,
+          as: "Address"
+        },
+      ],
+      attributes: [
+        "guest_id",
+        "first_name",
+        "last_name",
+        "nationality",
+        "email",
+        "phone_number"
+      ],
+    }
+    );
+    res.status(200).json({
+      code: 200,
+      message: "Usuarios obtenidos correctamente",
+      data: guests,
+
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // UPDATE
 export const updateGuest = async (req, res) => {
   try {
     // Retrieves the user ID for update operations
     const { guest_id, first_name } = req.body
-    
+
     //Validations
 
     console.log(guest_id, first_name)
     // Executes a database query to locate the corresponding ID
-    const guest = await Guest.findByPk(guest_id,{
-        include: [
-      {
-        model: Address,
-        as: "Address"
-      },
-    ],
+    const guest = await Guest.findByPk(guest_id, {
+      include: [
+        {
+          model: Address,
+          as: "Address"
+        },
+      ],
       attributes: [
-      "guest_id",
-      "first_name",
-      "last_name",
-      "nationality",
-      "email",
-      "phone_number"
-    ],
+        "guest_id",
+        "first_name",
+        "last_name",
+        "nationality",
+        "email",
+        "phone_number"
+      ],
     })
     //data shows
     console.log(guest, first_name)
@@ -148,14 +181,12 @@ export const updateGuest = async (req, res) => {
   } catch (error) {
     // error lists
   }
-
-
- };
+};
 
 
 // DELETE
 export const deleteGuest = async (req, res) => {
-  
+
   // Retrieves the user ID for update operations
   const { guest_id } = req.body
   console.log()
@@ -165,7 +196,7 @@ export const deleteGuest = async (req, res) => {
   const guest = await Guest.findByPk(guest_id)
 
   await guest.destroy()
-  
+
   res.status(200).json({
     code: 200,
     message: "Usuario eliminado correctamente",
