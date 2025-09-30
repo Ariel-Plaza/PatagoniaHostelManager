@@ -15,7 +15,8 @@ export const createGuest = async (req, res) => {
       address,
     } = req.body;
     // Armar el objeto de dirección
-    const { street, city, country} = address || {}; // 👈 validación defensiva
+    const { street, city, country } = address || {};
+    // validación defensiva
 
     // Validar campos obligatorios
     if (
@@ -36,7 +37,7 @@ export const createGuest = async (req, res) => {
 
     // Crear la dirección
     const addressRecord = await Address.create(address);
-
+console.log(guest_id)
     // Crear el huésped vinculado a la dirección
     const newGuest = await Guest.create({
       guest_id,

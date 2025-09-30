@@ -24,51 +24,100 @@ guestCheckboxes.forEach(checkbox => {
 });
 
 
-//New guest
-let formAddGuest = document.querySelector('#formAddGuest');
-
-formAddGuest.addEventListener('submit', (event) => {
+// Crear nuevo guest
+//obtengo el formulario
+const formAddGuest = document.querySelector('#formAddGuest');
+//escucho cuando se envie con boton submit
+formAddGuest.addEventListener('submit', async (event) => {
+  //evito el refresh
   event.preventDefault();
-  //Configuracion de datos json
-  const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-  //Datos a enviar a backend
-  const raw = JSON.stringify({
-    "guest_id": addGuest_id.value,
-    "first_name": addFirstName.value,
-    "last_name": addLastName.value,
-    "nationality": addNationality.value,
-    "email": addEmail.value,
-    "phone_number": addPhone.value,
-    "address": {
-      "street": addStreet.value,
-      "city": addCity.value,
-      "country": addCountry.value
+
+  try {
+    // Preparar datos del formulario
+    const guestData = {
+      //obtengo los campos y elimino espacios con trim
+      guest_id: addGuest_id.value.trim(),
+      first_name: addFirstName.value.trim(),
+      last_name: addLastName.value.trim(),
+      nationality: addNationality.value.trim(),
+      email: addEmail.value.trim(),
+      phone_number: addPhone.value.trim(),
+      address: {
+        street: addStreet.value.trim(),
+        city: addCity.value.trim(),
+        country: addCountry.value.trim()
+      }
+    };
+
+    // Validación básica antes de enviar
+    //mejorar validacion para incluir todos los campos
+    if (!guestData.first_name || !guestData.last_name || !guestData.nationality || !guestData.email ) {
+      throw new Error('Los campos nombre, apellido nacionalidad y email son obligatorios');
     }
 
-  });
-  //Solicitud post
-  const requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: 'follow'
-  };
+    // Realizar petición
+    const response = await fetch('/api/guests/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(guestData)
+    });
 
-  //Llamada a la api
-  fetch("/api/guests/create", requestOptions)
-    .then(response => response.json())
-    .then(result => {
-      if (result.code == 201) {
-        alert(`Mensaje: ${result.message}\nID nuevo guest: ${result.data}`);
-        //actualiza la tabla
-        location.reload();
+    // IMPORTANTE: fetch NO rechaza automáticamente en 4xx/5xx
+    if (!response.ok) {
+      // Manejar diferentes tipos de error
+      if (response.status === 400) {
+        throw new Error('Datos inválidos. Verifica el formulario');
+      } else if (response.status === 401) {
+        throw new Error('No autorizado. Inicia sesión nuevamente');
+      } else if (response.status === 409) {
+        throw new Error('El guest con ese ID ya existe');
+      } else if (response.status === 500) {
+        throw new Error('Error en el servidor. Intenta más tarde');
       } else {
-        alert(result.message)
+        throw new Error(`Error del servidor: ${response.status}`);
       }
-    })
-    .catch(error => console.log('error front', error));
-})
+    }
+
+    // Verificar que la respuesta es JSON
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new Error('La respuesta no es JSON válido');
+    }
+
+    const result = await response.json();
+
+    // Verificar respuesta exitosa
+    if (result.code === 201) {
+      alert(`✓ ${result.message}\nID del nuevo guest: ${result.data}`);
+
+      // Limpiar formulario
+      formAddGuest.reset();
+
+      // Actualizar la tabla
+      location.reload();
+    } else {
+      // Manejar respuestas con código diferente a 201
+      throw new Error(result.message || 'Error desconocido al crear guest');
+    }
+
+  } catch (error) {
+    console.error('Error al crear guest:', error);
+
+    // Manejar diferentes tipos de error
+    if (error.name === 'TypeError') {
+      alert('Error de conexión. Verifica tu internet.');
+    } else if (error.message.includes('autorizado')) {
+      alert('Sesión expirada. Inicia sesión nuevamente.');
+      window.location.href = '/login';
+    } else {
+      alert(`Error: ${error.message}`);
+    }
+
+    // No re-lanzar el error aquí porque es el manejador final
+  }
+});
 
 //edit guest
 //encuentra todos los botones edit y escucha el clic para activar la funcion editguest
